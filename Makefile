@@ -1,5 +1,9 @@
 all: bin/unix-echo-server bin/tcp-echo-server
 
+install: bin/unix-echo-server bin/tcp-echo-server
+	cp bin/unix-echo-server /bin/
+	cp bin/tcp-echo-server /bin/
+
 bin/unix-echo-server: unix-echo-server.c
 	cc unix-echo-server.c -o bin/unix-echo-server
 
