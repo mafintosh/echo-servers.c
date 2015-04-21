@@ -19,17 +19,17 @@ int main (int argc, char *argv[]) {
   char buf[BUFFER_SIZE];
 
   server_fd = socket(AF_UNIX, SOCK_STREAM, 0);
-  if (server_fd < 0) on_error("Could not create socket\n");  
+  if (server_fd < 0) on_error("Could not create socket\n");
 
   server.sun_family = AF_UNIX;
   strncpy(server.sun_path, sock_path, strlen(sock_path)+1);
   unlink(server.sun_path);
 
   err = bind(server_fd, (struct sockaddr *) &server, sizeof(server));
-  if (err < 0) on_error("Could not bind socket\n");  
+  if (err < 0) on_error("Could not bind socket\n");
 
   err = listen(server_fd, 128);
-  if (err < 0) on_error("Could not listen on socket\n");  
+  if (err < 0) on_error("Could not listen on socket\n");
 
   printf("Server is listening on %s\n", sock_path);
 
