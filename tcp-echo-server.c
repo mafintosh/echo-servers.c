@@ -18,17 +18,20 @@ int main (int argc, char *argv[]) {
   char buf[BUFFER_SIZE];
 
   server_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (server_fd < 0) on_error("Could not create socket\n");  
+  if (server_fd < 0) on_error("Could not create socket\n");
 
   server.sin_family = AF_INET;
   server.sin_port = htons(port);
   server.sin_addr.s_addr = htonl(INADDR_ANY);
 
+  int opt_val = 1;
+  setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt_val, sizeof opt_val);
+
   err = bind(server_fd, (struct sockaddr *) &server, sizeof(server));
-  if (err < 0) on_error("Could not bind socket\n");  
+  if (err < 0) on_error("Could not bind socket\n");
 
   err = listen(server_fd, 128);
-  if (err < 0) on_error("Could not listen on socket\n");  
+  if (err < 0) on_error("Could not listen on socket\n");
 
   printf("Server is listening on %d\n", port);
 
